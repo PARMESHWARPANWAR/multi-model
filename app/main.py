@@ -9,7 +9,7 @@ from prometheus_client import Counter, Summary, Histogram, generate_latest, CONT
 
 from app.api.routes import router as api_router
 from app.storage.service import StorageService
-from app.ingestion.real_loader import RealIngestionService
+from app.ingestion.service import RealIngestionService
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
