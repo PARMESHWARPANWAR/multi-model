@@ -5,7 +5,7 @@ torch==1.13.1
 faiss-cpu>=1.7.4
 pillow>=9.5.0
 python-multipart>=0.0.6
-imagebind @ git+https://github.com/facebookresearch/ImageBind.git
+imagebind @git+https://github.com/facebookresearch/ImageBind.git
 prometheus-client>=0.17.0
 sqlalchemy>=2.0.0
 pymongo>=4.3.0

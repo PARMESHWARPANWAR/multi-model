@@ -27,7 +27,8 @@ share/python-wheels/
 MANIFEST
 .checkpoints 
 checkpoints
-imagebind_env
+multi_model_env
+multi_model_env/
 data
 data/
 *data 
