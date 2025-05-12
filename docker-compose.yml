@@ -1,84 +1,43 @@
 version: '3.8'
 
 services:
-  app:
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    container_name: imagebind_api
-    ports:
-      - "8000:8000"
-    volumes:
-      # Only mount necessary directories
-      - ./app:/app/app
-      - ./.checkpoints:/app/.checkpoints
-      - ./data:/app/data
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
-    restart: unless-stopped
-    environment:
-      - MONGODB_URI=mongodb://mongodb:27017/
-      - MODEL_CACHE_DIR=/app/.checkpoints
-      - PIP_DEFAULT_TIMEOUT=200
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
-  
   mongodb:
     image: mongo:latest
-    container_name: imagebind_mongodb
+    container_name: multi_model_mongo
+    restart: unless-stopped
     ports:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    environment:
+      - MONGO_INITDB_DATABASE=multi_modal_search
+    networks:
+      - multi_model_network
+
+  app:
+    build: .
+    container_name: multi_model_app
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
-  
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: imagebind_prometheus
     ports:
-      - "9090:9090"
+      - "8000:8000"
     volumes:
-      - ./monitoring/prometheus:/etc/prometheus
-      - prometheus_data:/prometheus
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:9090/-/healthy"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-  
-  grafana:
-    image: grafana/grafana:latest
-    container_name: imagebind_grafana
-    ports:
-      - "3000:3000"
-    volumes:
-      - grafana_data:/var/lib/grafana
-    restart: unless-stopped
+      - ./app:/app/app
+      - ./data:/app/data
+      - ./temp:/app/temp
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/
+      - PYTHONUNBUFFERED=1
     depends_on:
-      - prometheus
-    healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/api/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - mongodb
+    networks:
+      - multi_model_network
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
 
 volumes:
   mongodb_data:
-  prometheus_data:
-  grafana_data:
+  mongodb_config:
+
+networks:
+  multi_model_network:
+    driver: bridge
