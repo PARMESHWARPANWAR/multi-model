@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi-Modal Search</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      header {
+        background-color: #2c3e50;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+      h1 {
+        margin: 0;
+      }
+      .search-container {
+        background-color: white;
+        border-radius: 8px;
+        padding: 30px;
+        margin-top: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .search-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .search-tabs {
+        display: flex;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+      }
+      .search-tab {
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .search-tab.active {
+        background-color: #3498db;
+        color: white;
+        border-radius: 4px 4px 0 0;
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input[type="text"],
+      select,
+      input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+      button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #2980b9;
+      }
+      .filters {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+      }
+      .results-container {
+        margin-top: 30px;
+      }
+      .result-count {
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+      .result-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+      }
+      .result-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+      .result-card:hover {
+        transform: translateY(-5px);
+      }
+      .result-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .result-details {
+        font-size: 14px;
+        color: #666;
+      }
+      .result-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 10px;
+      }
+      .tag {
+        background-color: #e1f5fe;
+        color: #0288d1;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+      .score {
+        margin-top: 10px;
+        font-weight: bold;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+      }
+      .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 80%;
+        max-height: 80%;
+        overflow: auto;
+      }
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      .loading {
+        display: none;
+        text-align: center;
+        margin: 20px 0;
+      }
+      .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border-left-color: #3498db;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Improve focus visibility for keyboard navigation */
+      .search-tab:focus,
+      button:focus,
+      input:focus,
+      select:focus,
+      .result-card:focus,
+      .close:focus {
+        outline: 2px solid #3498db;
+        outline-offset: 2px;
+      }
+
+      /* Keep focus visible even with :hover styles */
+      .search-tab:focus-visible,
+      button:focus-visible {
+        outline: 2px solid #3498db;
+        outline-offset: 2px;
+      }
+
+      /* Skip link for keyboard users */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #3498db;
+        color: white;
+        padding: 8px;
+        z-index: 100;
+        transition: top 0.2s;
+      }
+
+      .skip-link:focus {
+        top: 0;
+      }
+
+      /* Styles for error messages */
+      .error-message {
+        background-color: #ffebee;
+        color: #c62828;
+        padding: 10px;
+        border-radius: 4px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+
+      /* Style for export button */
+      .export-button {
+        margin-top: 20px;
+        background-color: #4caf50;
+      }
+
+      .export-button:hover {
+        background-color: #388e3c;
+      }
+
+      /* Style for download button */
+      .download-btn {
+        background-color: #ff9800;
+      }
+
+      .download-btn:hover {
+        background-color: #f57c00;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header>
+      <div class="container">
+        <h1>Multi-Modal Search</h1>
+        <p>
+          Search across text, images, and audio with state-of-the-art embeddings
+        </p>
+      </div>
+    </header>
+
+    <div id="main-content" class="container">
+      <div class="search-container">
+        <div class="search-tabs" role="tablist">
+          <div
+            class="search-tab active"
+            data-tab="text"
+            role="tab"
+            aria-selected="true"
+            aria-controls="text-search"
+            tabindex="0"
+            id="text-tab"
+          >
+            Text Search
+          </div>
+          <div
+            class="search-tab"
+            data-tab="image"
+            role="tab"
+            aria-selected="false"
+            aria-controls="image-search"
+            tabindex="-1"
+            id="image-tab"
+          >
+            Image Search
+          </div>
+          <div
+            class="search-tab"
+            data-tab="audio"
+            role="tab"
+            aria-selected="false"
+            aria-controls="audio-search"
+            tabindex="-1"
+            id="audio-tab"
+          >
+            Audio Search
+          </div>
+        </div>
+
+        <div
+          id="text-search"
+          class="tab-content active"
+          role="tabpanel"
+          aria-labelledby="text-tab"
+        >
+          <form id="text-search-form" class="search-form">
+            <div class="form-group">
+              <label for="text-query">Search Query:</label>
+              <input
+                type="text"
+                id="text-query"
+                name="query"
+                placeholder="Enter your search query..."
+                required
+              />
+            </div>
+
+            <div class="filters">
+              <div class="form-group">
+                <label for="text-category">Category:</label>
+                <select id="text-category" name="category">
+                  <option value="">All Categories</option>
+                  <!-- Categories will be loaded dynamically -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="text-modality">Modality:</label>
+                <select id="text-modality" name="modality">
+                  <option value="">All Modalities</option>
+                  <!-- Modalities will be loaded dynamically -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="text-limit">Results:</label>
+                <select id="text-limit" name="k">
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit">Search</button>
+          </form>
+        </div>
+
+        <div
+          id="image-search"
+          class="tab-content"
+          role="tabpanel"
+          aria-labelledby="image-tab"
+          hidden
+        >
+          <form id="image-search-form" class="search-form">
+            <div class="form-group">
+              <label for="image-file">Upload Image:</label>
+              <input
+                type="file"
+                id="image-file"
+                name="file"
+                accept="image/*"
+                required
+              />
+            </div>
+
+            <div class="filters">
+              <div class="form-group">
+                <label for="image-category">Category:</label>
+                <select id="image-category" name="category">
+                  <option value="">All Categories</option>
+                  <!-- Categories will be loaded dynamically -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="image-modality">Modality:</label>
+                <select id="image-modality" name="modality">
+                  <option value="">All Modalities</option>
+                  <!-- Modalities will be loaded dynamically -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="image-limit">Results:</label>
+                <select id="image-limit" name="k">
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit">Search</button>
+          </form>
+        </div>
+
+        <div
+          id="audio-search"
+          class="tab-content"
+          role="tabpanel"
+          aria-labelledby="audio-tab"
+          hidden
+        >
+          <form id="audio-search-form" class="search-form">
+            <div class="form-group">
+              <label for="audio-file">Upload Audio:</label>
+              <input
+                type="file"
+                id="audio-file"
+                name="file"
+                accept="audio/*"
+                required
+              />
+            </div>
+
+            <div class="filters">
+              <div class="form-group">
+                <label for="audio-category">Category:</label>
+                <select id="audio-category" name="category">
+                  <option value="">All Categories</option>
+                  <!-- Categories will be loaded dynamically -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="audio-modality">Modality:</label>
+                <select id="audio-modality" name="modality">
+                  <option value="">All Modalities</option>
+                  <!-- Modalities will be loaded dynamically -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="audio-limit">Results:</label>
+                <select id="audio-limit" name="k">
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit">Search</button>
+          </form>
+        </div>
+
+        <div class="loading" aria-live="polite">
+          <div class="spinner" aria-hidden="true"></div>
+          <p>Searching...</p>
+        </div>
+
+        <div class="results-container" aria-live="polite">
+          <div class="result-count"></div>
+          <div class="result-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result Detail Modal -->
+    <div
+      id="result-modal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div class="modal-content">
+        <span class="close" aria-label="Close" tabindex="0" role="button"
+          >&times;</span
+        >
+        <div id="modal-content">
+          <!-- Modal content will be populated dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Tab switching
+        const tabs = document.querySelectorAll(".search-tab");
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            const tabId = tab.getAttribute("data-tab");
+            switchTab(tabId);
+          });
+
+          // Handle keyboard navigation
+          tab.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              tab.click();
+            } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+              e.preventDefault();
+              const nextTab =
+                tab.nextElementSibling ||
+                document.querySelector(".search-tab:first-child");
+              nextTab.focus();
+            } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+              e.preventDefault();
+              const prevTab =
+                tab.previousElementSibling ||
+                document.querySelector(".search-tab:last-child");
+              prevTab.focus();
+            }
+          });
+        });
+
+        // Load categories and modalities
+        loadCategories();
+        loadModalities();
+
+        // Form submission handlers
+        document
+          .getElementById("text-search-form")
+          .addEventListener("submit", handleTextSearch);
+        document
+          .getElementById("image-search-form")
+          .addEventListener("submit", handleImageSearch);
+        document
+          .getElementById("audio-search-form")
+          .addEventListener("submit", handleAudioSearch);
+
+        // Modal close button
+        document.querySelector(".close").addEventListener("click", () => {
+          document.getElementById("result-modal").style.display = "none";
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener("click", (e) => {
+          if (e.target === document.getElementById("result-modal")) {
+            document.getElementById("result-modal").style.display = "none";
+          }
+        });
+
+        // Add keyboard navigation to modal
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            document.getElementById("result-modal").style.display = "none";
+          }
+        });
+      });
+
+      // Function to switch tabs
+      function switchTab(tabId) {
+        // Get all tabs and content
+        const tabs = document.querySelectorAll(".search-tab");
+        const contents = document.querySelectorAll(".tab-content");
+
+        // Update ARIA attributes for tabs
+        tabs.forEach((tab) => {
+          const isSelected = tab.getAttribute("data-tab") === tabId;
+          tab.setAttribute("aria-selected", isSelected ? "true" : "false");
+          tab.tabIndex = isSelected ? 0 : -1;
+
+          if (isSelected) {
+            tab.classList.add("active");
+          } else {
+            tab.classList.remove("active");
+          }
+        });
+
+        // Update content visibility
+        contents.forEach((content) => {
+          const isActive = content.id === `${tabId}-search`;
+          content.classList.toggle("active", isActive);
+
+          // Use hidden attribute for screen readers
+          if (isActive) {
+            content.removeAttribute("hidden");
+          } else {
+            content.setAttribute("hidden", "");
+          }
+        });
+      }
+
+      // Load categories from API
+      async function loadCategories() {
+        try {
+          const response = await fetch("/api/categories");
+          if (!response.ok) {
+            throw new Error(`Error fetching categories: ${response.status}`);
+          }
+          const data = await response.json();
+
+          const categoryOptions = data.categories
+            .map(
+              (category) => `<option value="${category}">${category}</option>`
+            )
+            .join("");
+
+          document.getElementById("text-category").innerHTML += categoryOptions;
+          document.getElementById("image-category").innerHTML +=
+            categoryOptions;
+          document.getElementById("audio-category").innerHTML +=
+            categoryOptions;
+        } catch (error) {
+          handleApiError(error, "loading categories");
+        }
+      }
+
+      // Load modalities from API
+      async function loadModalities() {
+        try {
+          const response = await fetch("/api/modalities");
+          if (!response.ok) {
+            throw new Error(`Error fetching modalities: ${response.status}`);
+          }
+          const data = await response.json();
+
+          const modalityOptions = data.modalities
+            .map(
+              (modality) => `<option value="${modality}">${modality}</option>`
+            )
+            .join("");
+
+          document.getElementById("text-modality").innerHTML += modalityOptions;
+          document.getElementById("image-modality").innerHTML +=
+            modalityOptions;
+          document.getElementById("audio-modality").innerHTML +=
+            modalityOptions;
+        } catch (error) {
+          handleApiError(error, "loading modalities");
+        }
+      }
+
+      // Handle text search
+      async function handleTextSearch(e) {
+        e.preventDefault();
+
+        console.log('get request ..........')
+        const query = document.getElementById("text-query").value;
+        const category = document.getElementById("text-category").value;
+        const modality = document.getElementById("text-modality").value;
+        const k = document.getElementById("text-limit").value;
+
+        // Show loading spinner
+        document.querySelector(".loading").style.display = "block";
+        document.querySelector(".results-container").style.display = "none";
+
+        try {
+          // Build the URL with query parameters
+          let url = `/api/search/text?query=${encodeURIComponent(
+            query
+          )}&k=${k}`;
+          if (category) url += `&category=${encodeURIComponent(category)}`;
+          if (modality) url += `&modality=${encodeURIComponent(modality)}`;
+
+          // Make a GET request
+          const response = await fetch(url);
+
+          if (!response.ok) {
+            throw new Error(`Search error: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          // Display results
+          displayResults(data.results);
+        } catch (error) {
+          handleApiError(error, "performing text search");
+        } finally {
+          // Hide loading spinner
+          document.querySelector(".loading").style.display = "none";
+          document.querySelector(".results-container").style.display = "block";
+        }
+      }
+
+      // Handle image search
+      async function handleImageSearch(e) {
+        e.preventDefault();
+
+        const fileInput = document.getElementById("image-file");
+        const category = document.getElementById("image-category").value;
+        const modality = document.getElementById("image-modality").value;
+        const k = document.getElementById("image-limit").value;
+
+        if (!fileInput.files || fileInput.files.length === 0) {
+          alert("Please select an image file to search with.");
+          return;
+        }
+
+        // Show loading spinner
+        document.querySelector(".loading").style.display = "block";
+        document.querySelector(".results-container").style.display = "none";
+
+        try {
+          const formData = new FormData();
+          formData.append("file", fileInput.files[0]);
+
+          // Build query parameters
+          let url = `/api/search/image?k=${k}`;
+          if (category) url += `&category=${encodeURIComponent(category)}`;
+          if (modality) url += `&modality=${encodeURIComponent(modality)}`;
+
+          const response = await fetch(url, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            throw new Error(`Search error: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          // Display results
+          displayResults(data.results);
+        } catch (error) {
+          handleApiError(error, "performing image search");
+        } finally {
+          // Hide loading spinner
+          document.querySelector(".loading").style.display = "none";
+          document.querySelector(".results-container").style.display = "block";
+        }
+      }
+
+      // Handle audio search
+      async function handleAudioSearch(e) {
+        e.preventDefault();
+
+        const fileInput = document.getElementById("audio-file");
+        const category = document.getElementById("audio-category").value;
+        const modality = document.getElementById("audio-modality").value;
+        const k = document.getElementById("audio-limit").value;
+
+        if (!fileInput.files || fileInput.files.length === 0) {
+          alert("Please select an audio file to search with.");
+          return;
+        }
+
+        // Show loading spinner
+        document.querySelector(".loading").style.display = "block";
+        document.querySelector(".results-container").style.display = "none";
+
+        try {
+          const formData = new FormData();
+          formData.append("file", fileInput.files[0]);
+
+          // Build query parameters
+          let url = `/api/search/audio?k=${k}`;
+          if (category) url += `&category=${encodeURIComponent(category)}`;
+          if (modality) url += `&modality=${encodeURIComponent(modality)}`;
+
+          const response = await fetch(url, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            throw new Error(`Search error: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          // Display results
+          displayResults(data.results);
+        } catch (error) {
+          handleApiError(error, "performing audio search");
+        } finally {
+          // Hide loading spinner
+          document.querySelector(".loading").style.display = "none";
+          document.querySelector(".results-container").style.display = "block";
+        }
+      }
+
+      // Display search results
+      function displayResults(results) {
+        const resultCount = document.querySelector(".result-count");
+        const resultGrid = document.querySelector(".result-grid");
+
+        // Update result count
+        resultCount.textContent = `${results.length} results found`;
+
+        // Clear previous results
+        resultGrid.innerHTML = "";
+
+        if (results.length === 0) {
+          resultGrid.innerHTML =
+            "<p>No results found. Try modifying your search criteria.</p>";
+          return;
+        }
+
+        // Create result cards
+        results.forEach((result) => {
+          const metadata = result.metadata;
+          const score = result.score;
+
+          const card = document.createElement("div");
+          card.className = "result-card";
+          card.dataset.id = metadata.id;
+          // Add accessibility attributes
+          card.setAttribute("tabindex", "0");
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-label", `Result: ${metadata.title}`);
+
+          // Card content
+          let cardContent = `
+                    <div class="result-title">${metadata.title}</div>
+                    <div class="result-details">
+                        <div>Modality: ${metadata.modality}</div>
+                        <div>Category: ${metadata.category || "N/A"}</div>
+                    </div>
+                `;
+
+          // Add tags if available
+          if (metadata.tags && metadata.tags.length > 0) {
+            cardContent += '<div class="result-tags">';
+            metadata.tags.forEach((tag) => {
+              cardContent += `<span class="tag">${tag}</span>`;
+            });
+            cardContent += "</div>";
+          }
+
+          // Add similarity score
+          cardContent += `<div class="score">Similarity: ${(
+            score * 100
+          ).toFixed(2)}%</div>`;
+
+          card.innerHTML = cardContent;
+
+          // Add click event to show details
+          card.addEventListener("click", () => showResultDetails(metadata));
+          // Add keyboard accessibility
+          card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              showResultDetails(metadata);
+              e.preventDefault();
+            }
+          });
+
+          resultGrid.appendChild(card);
+        });
+
+        // Add export button
+        addExportButton(results);
+      }
+
+      // Show result details in modal
+      function showResultDetails(metadata) {
+        const modal = document.getElementById("result-modal");
+        const modalContent = document.getElementById("modal-content");
+
+        // Build modal content based on modality
+        let content = `
+                <h2 id="modal-title">${metadata.title}</h2>
+                <p><strong>ID:</strong> ${metadata.id}</p>
+                <p><strong>Description:</strong> ${
+                  metadata.description || "No description available"
+                }</p>
+                <p><strong>Modality:</strong> ${metadata.modality}</p>
+                <p><strong>Category:</strong> ${metadata.category || "N/A"}</p>
+                <p><strong>Created:</strong> ${new Date(
+                  metadata.created_at
+                ).toLocaleString()}</p>
+            `;
+
+        // Add tags if available
+        if (metadata.tags && metadata.tags.length > 0) {
+          content += "<p><strong>Tags:</strong> ";
+          metadata.tags.forEach((tag, index) => {
+            content += `<span class="tag">${tag}</span>`;
+            if (index < metadata.tags.length - 1) content += " ";
+          });
+          content += "</p>";
+        }
+
+        // Add download button
+        content += `<button id="download-button" class="download-btn" style="margin-top: 15px;">Download Content</button>`;
+
+        // Add modality-specific content
+        if (metadata.modality === "image") {
+          content += `<img src="${metadata.source_path}" alt="${metadata.title}" style="max-width: 100%; margin-top: 15px;">`;
+        } else if (metadata.modality === "audio") {
+          content += `
+                    <audio controls style="width: 100%; margin-top: 15px;">
+                        <source src="${metadata.source_path}" type="audio/wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                `;
+        } else if (metadata.modality === "text") {
+          content += `<div style="margin-top: 15px; padding: 15px; background-color: #f5f5f5; border-radius: 4px; white-space: pre-wrap;">Loading text content...</div>`;
+
+          // Fetch text content
+          fetch(metadata.source_path)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`Error loading text: ${response.status}`);
+              }
+              return response.text();
+            })
+            .then((text) => {
+              const textElement = modalContent.querySelector(
+                'div[style*="white-space: pre-wrap"]'
+              );
+              if (textElement) {
+                textElement.textContent = text;
+              }
+            })
+            .catch((error) => {
+              console.error("Error loading text content:", error);
+              const textElement = modalContent.querySelector(
+                'div[style*="white-space: pre-wrap"]'
+              );
+              if (textElement) {
+                textElement.textContent = "Failed to load text content.";
+              }
+            });
+        }
+
+        modalContent.innerHTML = content;
+
+        // Add event listener to download button
+        const downloadButton = modalContent.querySelector("#download-button");
+        if (downloadButton) {
+          downloadButton.addEventListener("click", () =>
+            downloadResult(metadata)
+          );
+        }
+
+        modal.style.display = "block";
+
+        // Focus on the modal for accessibility
+        setTimeout(() => {
+          const closeButton = modal.querySelector(".close");
+          if (closeButton) closeButton.focus();
+        }, 100);
+      }
+
+      // Download result data
+      function downloadResult(metadata) {
+        // Create a link to download the content
+        const a = document.createElement("a");
+
+        if (metadata.modality === "text") {
+          fetch(metadata.source_path)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`Error downloading: ${response.status}`);
+              }
+              return response.text();
+            })
+            .then((text) => {
+              const blob = new Blob([text], { type: "text/plain" });
+              const url = URL.createObjectURL(blob);
+              a.href = url;
+              a.download = `${metadata.title || "text-content"}.txt`;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+            })
+            .catch((error) => {
+              console.error("Error downloading text content:", error);
+              alert("Failed to download text content.");
+            });
+        } else {
+          // For image and audio, just use the source path
+          a.href = metadata.source_path;
+          a.download = metadata.title || `file.${metadata.modality}`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }
+      }
+
+      // Export results to CSV
+      function exportResults(results) {
+        if (!results || results.length === 0) {
+          alert("No results to export.");
+          return;
+        }
+
+        // Prepare data for export
+        const exportData = results.map((result) => {
+          const { metadata, score } = result;
+          return {
+            id: metadata.id,
+            title: metadata.title,
+            modality: metadata.modality,
+            category: metadata.category || "N/A",
+            tags: metadata.tags ? metadata.tags.join(", ") : "",
+            similarity: (score * 100).toFixed(2) + "%",
+            created_at: new Date(metadata.created_at).toLocaleString(),
+            source_path: metadata.source_path,
+          };
+        });
+
+        // Convert to CSV
+        const headers = Object.keys(exportData[0]);
+        const csvContent = [
+          headers.join(","),
+          ...exportData.map((row) =>
+            headers
+              .map(
+                (field) => `"${String(row[field] || "").replace(/"/g, '""')}"`
+              )
+              .join(",")
+          ),
+        ].join("\n");
+
+        // Create download link
+        const blob = new Blob([csvContent], {
+          type: "text/csv;charset=utf-8;",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "search_results.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      // Add export button to results
+      function addExportButton(results) {
+        const resultContainer = document.querySelector(".results-container");
+
+        // Remove existing export button if any
+        const existingButton = document.querySelector(".export-button");
+        if (existingButton) {
+          existingButton.remove();
+        }
+
+        if (results && results.length > 0) {
+          const exportButton = document.createElement("button");
+          exportButton.className = "export-button";
+          exportButton.textContent = "Export Results";
+          exportButton.style.marginTop = "20px";
+          exportButton.addEventListener("click", () => exportResults(results));
+
+          resultContainer.appendChild(exportButton);
+        }
+      }
+
+      // Handle API errors
+      function handleApiError(error, context) {
+        console.error(`Error in ${context}:`, error);
+
+        // Display user-friendly error message
+        const errorMessage = document.createElement("div");
+        errorMessage.className = "error-message";
+        errorMessage.textContent = `An error occurred while ${context}. Please try again later.`;
+
+        document.querySelector(".results-container").prepend(errorMessage);
+
+        // Auto-remove error after 5 seconds
+        setTimeout(() => {
+          if (errorMessage.parentNode) {
+            errorMessage.parentNode.removeChild(errorMessage);
+          }
+        }, 5000);
+      }
+    </script>
+  </body>
+</html>
