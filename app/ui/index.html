@@ -644,7 +644,7 @@
       async function handleTextSearch(e) {
         e.preventDefault();
 
-        console.log('get request ..........')
+        console.log("get request ..........");
         const query = document.getElementById("text-query").value;
         const category = document.getElementById("text-category").value;
         const modality = document.getElementById("text-modality").value;
@@ -721,7 +721,7 @@
           const data = await response.json();
 
           // Display results
-          displayResults(data.results);
+          displayResults(data.results, "image");
         } catch (error) {
           handleApiError(error, "performing image search");
         } finally {
@@ -781,7 +781,7 @@
       }
 
       // Display search results
-      function displayResults(results) {
+      function displayResults(results, searchType = "text") {
         const resultCount = document.querySelector(".result-count");
         const resultGrid = document.querySelector(".result-grid");
 
@@ -805,19 +805,37 @@
           const card = document.createElement("div");
           card.className = "result-card";
           card.dataset.id = metadata.id;
-          // Add accessibility attributes
           card.setAttribute("tabindex", "0");
           card.setAttribute("role", "button");
           card.setAttribute("aria-label", `Result: ${metadata.title}`);
 
           // Card content
           let cardContent = `
-                    <div class="result-title">${metadata.title}</div>
-                    <div class="result-details">
-                        <div>Modality: ${metadata.modality}</div>
-                        <div>Category: ${metadata.category || "N/A"}</div>
+            <div class="result-title">${metadata.title}</div>
+        `;
+
+          if (metadata.modality === "image" && searchType === "image") {
+            // Convert Windows path to URL path
+            const imagePath = metadata.source_path.replace(/\\/g, "/");
+            cardContent += `
+                    <div style="margin: 10px 0;">
+                        <img src="/${imagePath}" 
+                            alt="${metadata.title}" 
+                            style="width: 100%; 
+                                    height: 200px; 
+                                    object-fit: cover; 
+                                    border-radius: 4px;"
+                            onerror="this.src='/api/placeholder.jpg';">
                     </div>
                 `;
+          }
+
+          cardContent += `
+            <div class="result-details">
+                <div>Modality: ${metadata.modality}</div>
+                <div>Category: ${metadata.category || "N/A"}</div>
+            </div>
+        `;
 
           // Add tags if available
           if (metadata.tags && metadata.tags.length > 0) {
@@ -837,7 +855,6 @@
 
           // Add click event to show details
           card.addEventListener("click", () => showResultDetails(metadata));
-          // Add keyboard accessibility
           card.addEventListener("keydown", (e) => {
             if (e.key === "Enter" || e.key === " ") {
               showResultDetails(metadata);

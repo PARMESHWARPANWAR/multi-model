@@ -29,9 +29,7 @@ MANIFEST
 checkpoints
 multi_model_env
 multi_model_env/
-data
-data/
-*data 
+data/* 
 /temp
 
 # PyInstaller

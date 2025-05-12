@@ -9,7 +9,7 @@ from prometheus_client import Counter, Summary, Histogram, generate_latest, CONT
 
 from app.api.routes import router as api_router
 from app.storage.service import StorageService
-from app.ingestion.service import IngestionService
+from app.ingestion.real_loader import RealIngestionService
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -59,6 +59,7 @@ async def health_check():
 
 # Mount static files for UI
 app.mount("/static", StaticFiles(directory="app/ui"), name="static")
+app.mount("/data", StaticFiles(directory="data"), name="data")
 
 # Serve UI
 @app.get("/")
@@ -86,9 +87,9 @@ async def startup_event():
                 metadata_count = storage_service.db.metadata.count_documents({})
                 if metadata_count == 0:
                     logger.info("No data found. Starting data ingestion process...")
-                    ingestion_service = IngestionService()
+                    ingestion_service = RealIngestionService()
                     # Data ingestion will be performed as a background task
-                    ingestion_result = await ingestion_service.batch_ingest()
+                    ingestion_result = await ingestion_service.ingest_batch()
                     logger.info(f"Data ingestion completed: {ingestion_result}")
             else:
                 logger.warning("Database not available, skipping data ingestion")

@@ -49,6 +49,7 @@ async def get_modalities(storage_service = Depends(get_storage_service)):
             return {"modalities": ["text", "image", "audio"]}
 
         modalities = storage_service.db.metadata.distinct("modality")
+        print("modalities in db", modalities)
         return {"modalities": modalities if modalities else ["text", "image", "audio"]}
     except Exception as e:
         logger.error(f"Error getting modalities: {e}")
@@ -172,6 +173,7 @@ async def search_by_image(
         if os.path.exists(temp_path):
             os.remove(temp_path)
 
+
 @router.post("/search/audio")
 async def search_by_audio(
     file: UploadFile = File(...),
@@ -183,6 +185,7 @@ async def search_by_audio(
 ):
     temp_dir = "temp"
     os.makedirs(temp_dir, exist_ok=True)
+    print('called audio search 12')
     
     temp_path = os.path.join(temp_dir, f"{uuid.uuid4()}.wav")
     try:
@@ -193,10 +196,12 @@ async def search_by_audio(
         query_embedding = result["embeddings"]
         
         filters = {}
+        filters = {"modality": "audio"}
+        
         if category:
             filters["category"] = category
-        if modality:
-            filters["modality"] = modality
+        # if modality:
+        #     filters["modality"] = modality
         
         # Search with filters
         if filters:
