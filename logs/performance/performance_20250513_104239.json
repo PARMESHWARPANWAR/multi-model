@@ -1,0 +1,32 @@
+[
+  {
+    "timestamp": "2025-05-13T10:42:32.541583",
+    "cpu": {
+      "percent": 2.5
+    },
+    "memory": {
+      "percent": 47.3,
+      "used_gb": 6.2711181640625,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 5023.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 61.31591796875
+      }
+    ],
+    "disk": {
+      "percent": 60.3,
+      "used_gb": 197.26446533203125,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 9622.144198417664,
+      "recv_mb": 18828.38729572296
+    }
+  }
+]

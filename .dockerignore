@@ -1,113 +1,17 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-*.egg
-*.egg-info/
-dist/
-build/
-.eggs/
-.Python
-env/
-venv/
-multi_model_env/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*.swn
-
-# OS
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Project specific
-data/
-temp/
-logs/
-*.log
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.git
 .env
-.env.*
-*.db
-*.sqlite
-*.h5
-*.pkl
-*.pt
-*.pth
-
-# Git
-.git/
-.gitignore
-.gitattributes
-
-# Documentation
-*.md
-docs/
-README*
-
-# Testing
+venv/
+env/
+.venv/
 .pytest_cache/
 .coverage
-htmlcov/
-*.test
-*.spec
-
-# Docker
-Dockerfile*
-docker-compose*.yml
-.dockerignore
-
-# Archives
-*.zip
-*.tar
-*.tar.gz
-*.rar
-*.7z
-
-# Media files
-*.mp4
-*.avi
-*.mov
-*.mp3
-*.wav
-*.jpg
-*.jpeg
-*.png
-*.gif
-*.bmp
-
-# Models and large files
-models/
-weights/
-checkpoints/
-*.bin
-*.model
-*.ckpt
-
-# Temporary files
-tmp/
-temp/
-cache/
-.cache/
-
-# Jupyter
-*.ipynb
-.ipynb_checkpoints/
-
-# Node
-node_modules/
-npm-debug.log
-yarn-error.log
-
-# System files
+*.log
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo

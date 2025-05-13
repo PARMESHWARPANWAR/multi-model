@@ -1,0 +1,182 @@
+[
+  {
+    "timestamp": "2025-05-13T10:32:47.083633",
+    "cpu": {
+      "percent": 2.5
+    },
+    "memory": {
+      "percent": 65.2,
+      "used_gb": 9.131153106689453,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 6.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0732421875
+      }
+    ],
+    "disk": {
+      "percent": 59.6,
+      "used_gb": 195.10877990722656,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 9618.099637031555,
+      "recv_mb": 18802.846912384033
+    }
+  },
+  {
+    "timestamp": "2025-05-13T10:32:58.419383",
+    "cpu": {
+      "percent": 5.7
+    },
+    "memory": {
+      "percent": 65.4,
+      "used_gb": 9.139606475830078,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 6.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0732421875
+      }
+    ],
+    "disk": {
+      "percent": 59.6,
+      "used_gb": 195.1090965270996,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 9618.109976768494,
+      "recv_mb": 18802.865553855896
+    }
+  },
+  {
+    "timestamp": "2025-05-13T10:33:08.543251",
+    "cpu": {
+      "percent": 6.3
+    },
+    "memory": {
+      "percent": 66.9,
+      "used_gb": 9.31198501586914,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 6.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0732421875
+      }
+    ],
+    "disk": {
+      "percent": 59.6,
+      "used_gb": 195.10919189453125,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 9618.150709152222,
+      "recv_mb": 18802.94447517395
+    }
+  },
+  {
+    "timestamp": "2025-05-13T10:33:18.667591",
+    "cpu": {
+      "percent": 8.7
+    },
+    "memory": {
+      "percent": 71.1,
+      "used_gb": 9.905284881591797,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 6.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0732421875
+      }
+    ],
+    "disk": {
+      "percent": 59.6,
+      "used_gb": 195.11071395874023,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 9618.242324829102,
+      "recv_mb": 18803.066534996033
+    }
+  },
+  {
+    "timestamp": "2025-05-13T10:33:29.988700",
+    "cpu": {
+      "percent": 3.1
+    },
+    "memory": {
+      "percent": 67.5,
+      "used_gb": 9.460494995117188,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 6.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0732421875
+      }
+    ],
+    "disk": {
+      "percent": 59.6,
+      "used_gb": 195.1105079650879,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 9618.25750541687,
+      "recv_mb": 18803.08064556122
+    }
+  },
+  {
+    "timestamp": "2025-05-13T10:33:40.122790",
+    "cpu": {
+      "percent": 3.1
+    },
+    "memory": {
+      "percent": 68.8,
+      "used_gb": 9.630134582519531,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 6.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0732421875
+      }
+    ],
+    "disk": {
+      "percent": 59.6,
+      "used_gb": 195.11062240600586,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 9618.278215408325,
+      "recv_mb": 18803.103671073914
+    }
+  }
+]

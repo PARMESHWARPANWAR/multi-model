@@ -18,7 +18,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Configuration
-DB_URL = os.getenv('MONGODB_URL', 'mongodb://localhost:27017/')
+DB_URL = os.getenv('MONGODB_URL', 'mongodb://localhost:27017/multi_modal_search')
+
 APP_HOST = os.getenv('APP_HOST', '0.0.0.0')
 APP_PORT = int(os.getenv('APP_PORT', 8000))
 
