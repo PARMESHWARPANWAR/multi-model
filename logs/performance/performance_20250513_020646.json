@@ -1,0 +1,92 @@
+[
+  {
+    "timestamp": "2025-05-13T02:05:42.453601",
+    "cpu": {
+      "percent": 22.0
+    },
+    "memory": {
+      "percent": 68.4,
+      "used_gb": 10.740928649902344,
+      "total_gb": 15.710990905761719
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 0.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0
+      }
+    ],
+    "disk": {
+      "percent": 91.6,
+      "used_gb": 550.9842681884766,
+      "total_gb": 601.3212852478027
+    },
+    "network": {
+      "sent_mb": 19.79011058807373,
+      "recv_mb": 733.0149517059326
+    }
+  },
+  {
+    "timestamp": "2025-05-13T02:06:08.534468",
+    "cpu": {
+      "percent": 40.0
+    },
+    "memory": {
+      "percent": 70.0,
+      "used_gb": 10.996192932128906,
+      "total_gb": 15.710990905761719
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 8086.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 98.7060546875
+      }
+    ],
+    "disk": {
+      "percent": 91.6,
+      "used_gb": 550.9877586364746,
+      "total_gb": 601.3212852478027
+    },
+    "network": {
+      "sent_mb": 19.806716918945312,
+      "recv_mb": 733.0272588729858
+    }
+  },
+  {
+    "timestamp": "2025-05-13T02:06:26.111459",
+    "cpu": {
+      "percent": 20.7
+    },
+    "memory": {
+      "percent": 71.0,
+      "used_gb": 11.162105560302734,
+      "total_gb": 15.710990905761719
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 8086.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 98.7060546875
+      }
+    ],
+    "disk": {
+      "percent": 91.6,
+      "used_gb": 550.9981498718262,
+      "total_gb": 601.3212852478027
+    },
+    "network": {
+      "sent_mb": 19.906394004821777,
+      "recv_mb": 733.193585395813
+    }
+  }
+]

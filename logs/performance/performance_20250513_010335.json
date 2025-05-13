@@ -1,0 +1,92 @@
+[
+  {
+    "timestamp": "2025-05-13T01:03:03.087060",
+    "cpu": {
+      "percent": 13.4
+    },
+    "memory": {
+      "percent": 63.2,
+      "used_gb": 9.934989929199219,
+      "total_gb": 15.710990905761719
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 0.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0
+      }
+    ],
+    "disk": {
+      "percent": 91.2,
+      "used_gb": 548.6431427001953,
+      "total_gb": 601.3212852478027
+    },
+    "network": {
+      "sent_mb": 10.561195373535156,
+      "recv_mb": 25.550124168395996
+    }
+  },
+  {
+    "timestamp": "2025-05-13T01:03:14.808721",
+    "cpu": {
+      "percent": 10.0
+    },
+    "memory": {
+      "percent": 63.6,
+      "used_gb": 9.997467041015625,
+      "total_gb": 15.710990905761719
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 0.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0
+      }
+    ],
+    "disk": {
+      "percent": 91.2,
+      "used_gb": 548.6432685852051,
+      "total_gb": 601.3212852478027
+    },
+    "network": {
+      "sent_mb": 10.571820259094238,
+      "recv_mb": 25.567814826965332
+    }
+  },
+  {
+    "timestamp": "2025-05-13T01:03:26.469343",
+    "cpu": {
+      "percent": 12.9
+    },
+    "memory": {
+      "percent": 65.9,
+      "used_gb": 10.357845306396484,
+      "total_gb": 15.710990905761719
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 0.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0
+      }
+    ],
+    "disk": {
+      "percent": 91.2,
+      "used_gb": 548.6434097290039,
+      "total_gb": 601.3212852478027
+    },
+    "network": {
+      "sent_mb": 10.60027027130127,
+      "recv_mb": 25.59776020050049
+    }
+  }
+]

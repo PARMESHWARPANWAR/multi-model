@@ -13,12 +13,9 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 
 RUN pip install --upgrade pip && \
-    pip install -r requirements.txt && \
-    pip install pandas soundfile
+    pip install -r requirements.txt
 
 COPY . .
-
-RUN mkdir -p data/raw/text data/raw/image data/raw/audio data/raw/video data/indices temp
 
 EXPOSE 8000
 

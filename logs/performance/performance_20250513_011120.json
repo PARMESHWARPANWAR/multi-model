@@ -1,0 +1,92 @@
+[
+  {
+    "timestamp": "2025-05-13T01:10:50.734380",
+    "cpu": {
+      "percent": 47.1
+    },
+    "memory": {
+      "percent": 67.7,
+      "used_gb": 10.63128662109375,
+      "total_gb": 15.710990905761719
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 0.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0
+      }
+    ],
+    "disk": {
+      "percent": 91.2,
+      "used_gb": 548.6495780944824,
+      "total_gb": 601.3212852478027
+    },
+    "network": {
+      "sent_mb": 12.030956268310547,
+      "recv_mb": 27.933382034301758
+    }
+  },
+  {
+    "timestamp": "2025-05-13T01:11:02.540803",
+    "cpu": {
+      "percent": 34.5
+    },
+    "memory": {
+      "percent": 70.6,
+      "used_gb": 11.098899841308594,
+      "total_gb": 15.710990905761719
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 0.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0
+      }
+    ],
+    "disk": {
+      "percent": 91.2,
+      "used_gb": 548.6501998901367,
+      "total_gb": 601.3212852478027
+    },
+    "network": {
+      "sent_mb": 12.113603591918945,
+      "recv_mb": 28.079955101013184
+    }
+  },
+  {
+    "timestamp": "2025-05-13T01:11:14.208945",
+    "cpu": {
+      "percent": 26.7
+    },
+    "memory": {
+      "percent": 69.5,
+      "used_gb": 10.916072845458984,
+      "total_gb": 15.710990905761719
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 0.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 0.0
+      }
+    ],
+    "disk": {
+      "percent": 91.2,
+      "used_gb": 548.6503219604492,
+      "total_gb": 601.3212852478027
+    },
+    "network": {
+      "sent_mb": 12.127041816711426,
+      "recv_mb": 28.193723678588867
+    }
+  }
+]
