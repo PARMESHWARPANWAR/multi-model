@@ -15,3 +15,5 @@ env/
 .vscode/
 *.swp
 *.swo
+.checkpoints/
+multi_model_env/

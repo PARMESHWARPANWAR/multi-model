@@ -13,12 +13,16 @@ RUN apt-get update && apt-get install -y \
 # Copy requirements first for better caching
 COPY requirements.txt .
 
-# Install Python packages
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+# Install Python packages in multiple steps with pip optimization flags
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir wheel setuptools && \
+    pip install --no-cache-dir torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 --index-url https://download.pytorch.org/whl/cpu
+
+# Install other requirements
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Install pytorchvideo
-RUN pip install pytorchvideo
+RUN pip install --no-cache-dir pytorchvideo
 
 # Install ImageBind without dependencies
 RUN pip install --no-deps git+https://github.com/facebookresearch/ImageBind.git
@@ -29,7 +33,8 @@ COPY . .
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV KMP_DUPLICATE_LIB_OK=TRUE
-ENV MONGODB_URL=mongodb://mongodb:27017/multi_modal_search
+# Atlas MongoDB URL will be passed via docker-compose or environment
+ENV MONGODB_URL=mongodb+srv://Ecom-Mern:orzNcirHTxouOmba@cluster0.2j1hm.mongodb.net/multi_modal_search?retryWrites=true&w=majority
 
 # Create required directories
 RUN mkdir -p data/raw data/indices temp logs
@@ -38,4 +43,4 @@ RUN mkdir -p data/raw data/indices temp logs
 EXPOSE 8000
 
 # Run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

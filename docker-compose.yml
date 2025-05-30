@@ -1,24 +1,16 @@
 version: '3.8'
 
 services:
-  mongodb:
-    image: mongo:latest
-    container_name: multi_model_mongo
-    restart: unless-stopped
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-      - mongodb_config:/data/configdb
-    environment:
-      - MONGO_INITDB_DATABASE=multi_modal_search
-    networks:
-      - multi_model_network
-
   app:
     build: .
     container_name: multi_model_app
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
     ports:
       - "8000:8000"
     volumes:
@@ -26,19 +18,10 @@ services:
       - ./data:/app/data
       - ./temp:/app/temp
       - ./logs:/app/logs
+    env_file:
+      - .env
     environment:
-      - MONGODB_URL=mongodb://mongodb:27017/multi_modal_search
-      - PYTHONUNBUFFERED=1
-      - KMP_DUPLICATE_LIB_OK=TRUE
-    depends_on:
-      - mongodb
-    networks:
-      - multi_model_network
-
-volumes:
-  mongodb_data:
-  mongodb_config:
-
-networks:
-  multi_model_network:
-    driver: bridge
+      # Override or add additional environment variables here if needed
+      - PYTHONUNBUFFERED=${PYTHONUNBUFFERED}
+      - KMP_DUPLICATE_LIB_OK=${KMP_DUPLICATE_LIB_OK}
+      - MONGODB_URL=${MONGODB_URL}

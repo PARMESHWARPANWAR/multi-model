@@ -1,0 +1,332 @@
+[
+  {
+    "timestamp": "2025-05-13T11:40:47.472216",
+    "cpu": {
+      "percent": 10.0
+    },
+    "memory": {
+      "percent": 38.7,
+      "used_gb": 5.107818603515625,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 5023.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 61.31591796875
+      }
+    ],
+    "disk": {
+      "percent": 64.6,
+      "used_gb": 211.16171646118164,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 22006.809242248535,
+      "recv_mb": 33511.362164497375
+    }
+  },
+  {
+    "timestamp": "2025-05-13T11:40:57.607488",
+    "cpu": {
+      "percent": 24.1
+    },
+    "memory": {
+      "percent": 43.2,
+      "used_gb": 5.679389953613281,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 5023.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 61.31591796875
+      }
+    ],
+    "disk": {
+      "percent": 64.6,
+      "used_gb": 211.1734962463379,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 22006.895162582397,
+      "recv_mb": 33511.50056934357
+    }
+  },
+  {
+    "timestamp": "2025-05-13T11:41:07.732332",
+    "cpu": {
+      "percent": 14.9
+    },
+    "memory": {
+      "percent": 44.0,
+      "used_gb": 5.898731231689453,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 5023.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 61.31591796875
+      }
+    ],
+    "disk": {
+      "percent": 64.5,
+      "used_gb": 211.13832473754883,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 22006.91086578369,
+      "recv_mb": 33511.50410938263
+    }
+  },
+  {
+    "timestamp": "2025-05-13T11:41:17.858307",
+    "cpu": {
+      "percent": 3.8
+    },
+    "memory": {
+      "percent": 41.4,
+      "used_gb": 5.5037994384765625,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 5023.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 61.31591796875
+      }
+    ],
+    "disk": {
+      "percent": 64.5,
+      "used_gb": 211.13867950439453,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 22006.91259098053,
+      "recv_mb": 33511.5055770874
+    }
+  },
+  {
+    "timestamp": "2025-05-13T11:41:27.989502",
+    "cpu": {
+      "percent": 11.3
+    },
+    "memory": {
+      "percent": 39.2,
+      "used_gb": 5.115631103515625,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 5023.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 61.31591796875
+      }
+    ],
+    "disk": {
+      "percent": 64.5,
+      "used_gb": 211.13872146606445,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 22006.92415714264,
+      "recv_mb": 33511.51916217804
+    }
+  },
+  {
+    "timestamp": "2025-05-13T11:41:38.117128",
+    "cpu": {
+      "percent": 15.9
+    },
+    "memory": {
+      "percent": 41.3,
+      "used_gb": 5.4617919921875,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 5023.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 61.31591796875
+      }
+    ],
+    "disk": {
+      "percent": 64.5,
+      "used_gb": 211.1348419189453,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 22007.116779327393,
+      "recv_mb": 33511.60563278198
+    }
+  },
+  {
+    "timestamp": "2025-05-13T11:41:48.244904",
+    "cpu": {
+      "percent": 15.2
+    },
+    "memory": {
+      "percent": 40.1,
+      "used_gb": 5.257907867431641,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 5023.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 61.31591796875
+      }
+    ],
+    "disk": {
+      "percent": 64.5,
+      "used_gb": 211.13483810424805,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 22007.12490940094,
+      "recv_mb": 33511.617495536804
+    }
+  },
+  {
+    "timestamp": "2025-05-13T11:41:58.366575",
+    "cpu": {
+      "percent": 13.2
+    },
+    "memory": {
+      "percent": 40.0,
+      "used_gb": 5.267826080322266,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 5023.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 61.31591796875
+      }
+    ],
+    "disk": {
+      "percent": 64.5,
+      "used_gb": 211.13482666015625,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 22007.127857208252,
+      "recv_mb": 33511.624886512756
+    }
+  },
+  {
+    "timestamp": "2025-05-13T11:42:08.492457",
+    "cpu": {
+      "percent": 8.8
+    },
+    "memory": {
+      "percent": 42.0,
+      "used_gb": 5.556098937988281,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 5023.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 61.31591796875
+      }
+    ],
+    "disk": {
+      "percent": 64.5,
+      "used_gb": 211.13930892944336,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 22007.150944709778,
+      "recv_mb": 33511.9525718689
+    }
+  },
+  {
+    "timestamp": "2025-05-13T11:42:18.616492",
+    "cpu": {
+      "percent": 2.5
+    },
+    "memory": {
+      "percent": 41.5,
+      "used_gb": 5.456787109375,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 5023.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 61.31591796875
+      }
+    ],
+    "disk": {
+      "percent": 64.5,
+      "used_gb": 211.13930892944336,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 22007.153079986572,
+      "recv_mb": 33511.957478523254
+    }
+  },
+  {
+    "timestamp": "2025-05-13T11:42:28.740492",
+    "cpu": {
+      "percent": 3.8
+    },
+    "memory": {
+      "percent": 42.3,
+      "used_gb": 5.600002288818359,
+      "total_gb": 15.325550079345703
+    },
+    "gpu": [
+      {
+        "id": 0,
+        "name": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+        "load": 0.0,
+        "memory_used": 5023.0,
+        "memory_total": 8192.0,
+        "memory_used_percent": 61.31591796875
+      }
+    ],
+    "disk": {
+      "percent": 64.5,
+      "used_gb": 211.1392936706543,
+      "total_gb": 344.69536209106445
+    },
+    "network": {
+      "sent_mb": 22007.15537071228,
+      "recv_mb": 33511.96570968628
+    }
+  }
+]
