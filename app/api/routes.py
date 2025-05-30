@@ -140,6 +140,7 @@ async def search_by_text_get(
     performance_monitor = Depends(get_performance_monitor),
     metrics = Depends(get_metrics)
 ):
+    print('call search =>', query)
     try:
         start_time = time.time()
        

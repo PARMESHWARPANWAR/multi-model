@@ -42,5 +42,8 @@ RUN mkdir -p data/raw data/indices temp logs
 # Expose the port
 EXPOSE 8000
 
+COPY download_model.py .
+RUN python download_model.py
+
 # Run the application
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

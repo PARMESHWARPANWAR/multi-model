@@ -13,7 +13,7 @@ from app.storage.faiss_gpu import FaissGPUIndex, OptimizedVectorStorage
 logger = logging.getLogger(__name__)
 os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 
-DB_URL = os.getenv('MONGODB_URL', 'mongodb://localhost:27017')
+DB_URL = os.getenv('MONGODB_URL', 'mongodb+srv://Ecom-Mern:orzNcirHTxouOmba@cluster0.2j1hm.mongodb.net/multi_modal_search?retryWrites=true&w=majority')
 
 class StorageService:
     def __init__(self, mongo_uri=DB_URL, use_mock_if_unavailable=False):

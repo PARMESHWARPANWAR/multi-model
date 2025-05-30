@@ -1,6 +1,7 @@
 import os
 import json
 import uuid
+import logging
 import requests
 import zipfile
 import tarfile
@@ -12,6 +13,7 @@ from tqdm import tqdm
 import pandas as pd
 from app.storage.models import MetadataModel
 
+logger = logging.getLogger(__name__)
 
 class RealDataLoader:
     def __init__(self, base_data_dir="data/raw"):
